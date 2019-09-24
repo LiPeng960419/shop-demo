@@ -7,8 +7,11 @@ import com.coship.common.base.BaseApiService;
 import com.coship.common.base.ResponseBase;
 import com.coship.common.constants.Constants;
 import com.coship.common.utils.MD5Util;
+import com.coship.common.utils.TokenUtils;
 import com.coship.member.dao.MemberDao;
 import com.coship.member.mq.RegisterMailboxProducer;
+import java.util.Date;
+import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.commons.lang.StringUtils;
@@ -52,6 +55,8 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
         }
         String newPassword = MD5Util.MD5(password);
         user.setPassword(newPassword);
+        user.setCreated(new Date());
+        user.setUpdated(new Date());
         Integer result = memberDao.insertUser(user);
         if (result <= 0) {
             return setResultError("注册用户信息失败.");
@@ -62,6 +67,33 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
         log.info("####会员服务推送消息到消息服务平台####json:{}", json);
         sendMsg(json);
         return setResultSuccess("用户注册成功.");
+    }
+
+    @Override
+    public ResponseBase login(@RequestBody UserEntity user) {
+        String username = user.getUsername();
+        if (StringUtils.isEmpty(username)) {
+            return setResultError("用户名不能为空.");
+        }
+        String password = user.getPassword();
+        if (StringUtils.isEmpty(password)) {
+            return setResultError("密码不能为空.");
+        }
+        password = MD5Util.MD5(password);
+        UserEntity loginUser = memberDao.login(username, password);
+        if (Objects.isNull(loginUser)){
+            return setResultError("用户名和密码不匹配.");
+        }
+
+        String memberToken = TokenUtils.getMemberToken();
+
+        Integer userId = loginUser.getId();
+        log.info("####用户信息token存放在redis中... key为:{},value", memberToken, userId);
+        baseRedisService.setString(memberToken, userId + "", Constants.TOKEN_MEMBER_TIME);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("memberToken", memberToken);
+        return setResultSuccess(jsonObject);
     }
 
     private String emailJson(String email) {
@@ -78,7 +110,6 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
     private void sendMsg(String json) {
         ActiveMQQueue activeMQQueue = new ActiveMQQueue(MESSAGESQUEUE);
         registerMailboxProducer.sendMsg(activeMQQueue, json);
-
     }
 
 }

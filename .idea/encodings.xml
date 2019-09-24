@@ -4,14 +4,12 @@
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/api" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/api-member" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/api-member" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/eureka" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/member" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/member/src/main/resources/application.yml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/message" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/message/src/main/resources/application.yml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/shop-api" charset="UTF-8" />
-    <file url="PROJECT" charset="GBK" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

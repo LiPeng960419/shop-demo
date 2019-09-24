@@ -20,4 +20,7 @@ public interface MemberService {
     @RequestMapping(value = "/regUser", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseBase regUser(@RequestBody UserEntity user);
 
+    @RequestMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseBase login(@RequestBody UserEntity user);
+
 }

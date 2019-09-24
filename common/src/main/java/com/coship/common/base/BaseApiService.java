@@ -1,13 +1,14 @@
 package com.coship.common.base;
 
 import com.coship.common.constants.Constants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BaseApiService {
 
- /*   @Autowired
-    protected BaseRedisService baseRedisService;*/
+    @Autowired
+    protected BaseRedisService baseRedisService;
 
     // 返回错误，可以传msg
     public ResponseBase setResultError(String msg) {

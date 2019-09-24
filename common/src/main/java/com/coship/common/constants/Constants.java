@@ -17,4 +17,10 @@ public interface Constants {
     // 发送邮件
     String MSG_EMAIL = "email";
 
+    // 会员token
+    String TOKEN_MEMBER = "TOKEN_MEMBER";
+
+    // 用户有效期 90天
+    Long TOKEN_MEMBER_TIME = (long) (60 * 60 * 24 * 90);
+
 }

@@ -7,10 +7,15 @@ eureka:
 spring:
   application:
     name: member
+  activemq:
+    broker-url: tcp://10.9.216.1:61616
+    in-memory: true
+    pool:
+      enabled: false
   #redis连接信息
   redis:
-    #host: 10.9.216.1
-    #port: 6379
+#    host: 10.9.216.1
+#    port: 6379
     cluster:
       nodes: 10.9.216.1:7000,10.9.216.1:7001,10.9.216.1:7002,10.9.216.1:7003,10.9.216.1:7004,10.9.216.1:7005,10.9.216.1:7006,10.9.216.1:7007,10.9.216.1:7008
     pool:
