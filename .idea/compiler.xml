@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="api" />
+        <module name="api-member" />
+        <module name="common" />
+        <module name="eureka" />
+        <module name="member" />
+        <module name="member-api" />
+        <module name="message" />
+        <module name="shop-parent" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="api" target="1.8" />
+      <module name="api-member" target="1.8" />
+      <module name="common" target="1.8" />
+      <module name="demo" target="1.8" />
+      <module name="eureka" target="1.8" />
+      <module name="member" target="1.8" />
+      <module name="member-api" target="1.8" />
+      <module name="message" target="1.8" />
+      <module name="shop-api" target="1.8" />
+      <module name="shop-parent" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="api" options="" />
+      <module name="api-member" options="" />
+      <module name="common" options="" />
+      <module name="demo" options="" />
+      <module name="eureka" options="" />
+      <module name="member" options="" />
+      <module name="member-api" options="-parameters" />
+      <module name="message" options="" />
+      <module name="shop-api" options="-parameters" />
+      <module name="shop-parent" options="" />
+    </option>
+  </component>
+</project>

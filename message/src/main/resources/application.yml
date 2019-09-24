@@ -1,0 +1,35 @@
+server:
+  port: 8763
+  context-path: /message
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+spring:
+  application:
+    name: message
+  activemq:
+    broker-url: tcp://10.9.216.1:61616
+    in-memory: true
+    pool:
+      enabled: false
+  mail:
+    host: pop.coship.com
+    username: lipeng@coship.com
+    password: Pwd#910138
+    default-encoding: utf-8
+    properties:
+      mail.debug: false
+      mail.smtp.auth: true   #安全认证(默认是true)
+      mail.smtp.ssl.enable: true  #开启ssl加密 否则项目启动时报530error
+      mail.smtp.ssl.socketFactory: sf
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+########################################
+msg:
+  subject: 蚂蚁课堂|每特教育提示您，会员注册成功邮件。
+  text:  恭喜您的账户{},注册成功!蚂蚁课堂|每特教育 上海每特教育科技有限公司 www.itmayiedu.com
+
+##队列
+messages:
+  queue: messages_queue

@@ -1,0 +1,46 @@
+server:
+  port: 8762
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+spring:
+  application:
+    name: member
+  #redis连接信息
+  redis:
+    #host: 10.9.216.1
+    #port: 6379
+    cluster:
+      nodes: 10.9.216.1:7000,10.9.216.1:7001,10.9.216.1:7002,10.9.216.1:7003,10.9.216.1:7004,10.9.216.1:7005,10.9.216.1:7006,10.9.216.1:7007,10.9.216.1:7008
+    pool:
+      max-idle: 100
+      min-idle: 1
+      max-active: 1000
+      max-wait: -1
+  #数据库连接信息
+  datasource:
+    name: member
+    url: jdbc:mysql://127.0.0.1:3306/member
+    username: root
+    password: root
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+
+##队列
+messages:
+  queue: messages_queue
