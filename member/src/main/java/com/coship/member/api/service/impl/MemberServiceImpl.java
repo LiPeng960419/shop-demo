@@ -88,7 +88,7 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
         String memberToken = TokenUtils.getMemberToken();
 
         Integer userId = loginUser.getId();
-        log.info("####用户信息token存放在redis中... key为:{},value", memberToken, userId);
+        log.info("####用户信息token存放在redis中... key为:{},value:{}", memberToken, userId);
         baseRedisService.setString(memberToken, userId + "", Constants.TOKEN_MEMBER_TIME);
 
         JSONObject jsonObject = new JSONObject();
