@@ -96,9 +96,12 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
     @Override
     public ResponseBase findUserByToken(String token) {
         if (Objects.isNull(token)) {
-            setResultError("token 不能为空");
+            return setResultError("token 不能为空");
         }
         String userId = (String) baseRedisService.getString(token);
+        if (Objects.isNull(userId)) {
+            return setResultError("用户信息不存在");
+        }
         UserEntity userEntity = memberDao.findByID(Long.parseLong(userId));
         userEntity.setPassword(null);
         return setResultSuccess(userEntity, token);
