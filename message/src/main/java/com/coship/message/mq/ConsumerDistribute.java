@@ -7,7 +7,6 @@ import com.coship.message.service.EmailService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,13 +18,7 @@ public class ConsumerDistribute {
 
     private MessageAdapter messageAdapter;
 
-    // 监听消息
-    @JmsListener(destination = "${messages.queue}")
-    public void distribute(String json) {
-        log.info("#####消息服务平台接受消息内容:{}#####", json);
-        if (StringUtils.isEmpty(json)) {
-            return;
-        }
+    public void sendEmail(String json){
         JSONObject rootJSON = JSONObject.parseObject(json);
         JSONObject header = rootJSON.getJSONObject("header");
         String interfaceType = header.getString("interfaceType");

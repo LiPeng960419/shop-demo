@@ -46,6 +46,23 @@ spring:
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
 
+rocketmq:
+  name-server: 10.9.216.1:9876;10.9.217.3:9876
+  producer:
+    # 发送端发送失败重试的次数，默认两次，可能会带来消息重复发送
+    retryTimesWhenSendFailed: 2
+    # 发送端需要提供这个，消费端根据topic和group去消费，集群模式，同一个group只会被消费一次
+    group: member-group
+    # 异步发送模式，同上
+    retryTimesWhenSendAsyncFailed: 2
+    #发送消息超时时间，单位毫秒，默认 3000（3秒钟）
+    sendMessageTimeout: 5000
+    # 消息大小超过 4k，则被压缩，默认大小4k
+    compressMessageBodyThreshold: 4096
+    # 最大消息允许4M
+    maxMessageSize: 4194304
+    # 消息存储失败，是否允许发送换broker
+    retryNextServer: false
 ##队列
 messages:
   queue: messages_queue

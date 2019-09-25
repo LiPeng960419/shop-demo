@@ -30,6 +30,13 @@ msg:
   subject: 李鹏提醒您，会员注册成功邮件。
   text:  恭喜您的账户{},注册成功!
 
+rocketmq:
+  name-server: 10.9.216.1:9876;10.9.217.3:9876
+  consumer:
+    group: member-group
+    consumeThreadMin: 20
+    consumeThreadMax: 64
+    consumeMessageBatchMaxSize: 1
 ##队列
 messages:
   queue: messages_queue

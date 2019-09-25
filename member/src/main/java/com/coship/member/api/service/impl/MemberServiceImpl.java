@@ -10,6 +10,7 @@ import com.coship.common.utils.MD5Util;
 import com.coship.common.utils.TokenUtils;
 import com.coship.member.dao.MemberDao;
 import com.coship.member.mq.RegisterMailboxProducer;
+import com.coship.member.rocketmq.RocketmqEmailSender;
 import java.util.Date;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,9 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 
     @Autowired
     private MemberDao memberDao;
+
+    @Autowired
+    private RocketmqEmailSender rocketmqEmailSender;
 
     @Autowired
     private RegisterMailboxProducer registerMailboxProducer;
@@ -62,11 +66,12 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
             return setResultError("注册用户信息失败.");
         }
         // 采用异步方式发送消息
-        if (StringUtils.isNotEmpty(user.getEmail())){
+        if (StringUtils.isNotEmpty(user.getEmail())) {
             String email = user.getEmail();
             String json = emailJson(email);
             log.info("####会员服务推送消息到消息服务平台####json:{}", json);
-            sendMsg(json);
+            //sendMsgByActiveMq(json);
+            sendMsgByRocketMq(json);
         }
         return setResultSuccess("用户注册成功.", null);
     }
@@ -154,7 +159,7 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
 
         Long userId = successLoginUser.getId();
         int updateResult = memberDao.updateUserByOpenId(openid, userId);
-        if (updateResult <= 0){
+        if (updateResult <= 0) {
             return setResultError("QQ账号关联用户失败!");
         }
         return loginUser;
@@ -171,9 +176,13 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
         return rootJson.toJSONString();
     }
 
-    private void sendMsg(String json) {
+    private void sendMsgByActiveMq(String json) {
         ActiveMQQueue activeMQQueue = new ActiveMQQueue(MESSAGESQUEUE);
         registerMailboxProducer.sendMsg(activeMQQueue, json);
+    }
+
+    private void sendMsgByRocketMq(String json) {
+        rocketmqEmailSender.sendEmail(json);
     }
 
 }

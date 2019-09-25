@@ -22,6 +22,9 @@ public interface Constants {
     // 会员token
     String TOKEN_MEMBER = "TOKEN_MEMBER";
 
+    //email消费者订阅的主题和tags("*"号表示订阅该主题下所有的tags),格式：topic~tag1||tag2||tag3;topic2~*;
+    String MEMBER_REGISTER_TOPIC = "member_register_topic~*";
+
     // 用户有效期 90天
     Long TOKEN_MEMBER_TIME = (long) (60 * 60 * 24 * 90);
 
