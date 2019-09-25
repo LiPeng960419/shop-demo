@@ -27,8 +27,8 @@ spring:
       mail.smtp.starttls.required: true
 ########################################
 msg:
-  subject: 蚂蚁课堂|每特教育提示您，会员注册成功邮件。
-  text:  恭喜您的账户{},注册成功!蚂蚁课堂|每特教育 上海每特教育科技有限公司 www.itmayiedu.com
+  subject: 李鹏提醒您，会员注册成功邮件。
+  text:  恭喜您的账户{},注册成功!
 
 ##队列
 messages:
