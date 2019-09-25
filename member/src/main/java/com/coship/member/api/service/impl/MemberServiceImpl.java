@@ -81,19 +81,30 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
         }
         password = MD5Util.MD5(password);
         UserEntity loginUser = memberDao.login(username, password);
-        if (Objects.isNull(loginUser)){
+        if (Objects.isNull(loginUser)) {
             return setResultError("用户名和密码不匹配.");
         }
 
         String memberToken = TokenUtils.getMemberToken();
 
-        Integer userId = loginUser.getId();
+        Long userId = loginUser.getId();
         log.info("####用户信息token存放在redis中... key为:{},value:{}", memberToken, userId);
         baseRedisService.setString(memberToken, userId + "", Constants.TOKEN_MEMBER_TIME);
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("memberToken", memberToken);
         return setResultSuccess(jsonObject);
+    }
+
+    @Override
+    public ResponseBase findUserByToken(String token) {
+        if (Objects.isNull(token)) {
+            setResultError("token 不能为空");
+        }
+        String userId = (String) baseRedisService.getString(token);
+        UserEntity userEntity = memberDao.findByID(Long.parseLong(userId));
+        userEntity.setPassword(null);
+        return setResultSuccess(userEntity);
     }
 
     private String emailJson(String email) {

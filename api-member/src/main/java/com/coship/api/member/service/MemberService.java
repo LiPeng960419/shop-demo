@@ -23,4 +23,7 @@ public interface MemberService {
     @RequestMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseBase login(@RequestBody UserEntity user);
 
+    @RequestMapping(value = "/findUserByToken", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseBase findUserByToken(String token);
+
 }
