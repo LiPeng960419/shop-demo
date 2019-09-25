@@ -43,7 +43,7 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
         if (user == null) {
             return setResultError("未查找到用户信息.");
         }
-        return setResultSuccess(user);
+        return setResultSuccess(user, null);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
         String json = emailJson(email);
         log.info("####会员服务推送消息到消息服务平台####json:{}", json);
         sendMsg(json);
-        return setResultSuccess("用户注册成功.");
+        return setResultSuccess("用户注册成功.", null);
     }
 
     @Override
@@ -90,10 +90,7 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
         Long userId = loginUser.getId();
         log.info("####用户信息token存放在redis中... key为:{},value:{}", memberToken, userId);
         baseRedisService.setString(memberToken, userId + "", Constants.TOKEN_MEMBER_TIME);
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("memberToken", memberToken);
-        return setResultSuccess(jsonObject);
+        return setResultSuccess(null, memberToken);
     }
 
     @Override
@@ -104,7 +101,7 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
         String userId = (String) baseRedisService.getString(token);
         UserEntity userEntity = memberDao.findByID(Long.parseLong(userId));
         userEntity.setPassword(null);
-        return setResultSuccess(userEntity);
+        return setResultSuccess(userEntity, token);
     }
 
     private String emailJson(String email) {

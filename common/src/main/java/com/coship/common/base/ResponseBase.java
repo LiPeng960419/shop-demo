@@ -9,33 +9,26 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ResponseBase {
 
-	private Integer rtnCode;
-	private String msg;
-	private Object data;
+    private Integer rtnCode;
+    private String msg;
+    private Object data;
+    private String token;
 
-	public ResponseBase() {
+    public ResponseBase() {
 
-	}
+    }
 
-	public ResponseBase(Integer rtnCode, String msg, Object data) {
-		super();
-		this.rtnCode = rtnCode;
-		this.msg = msg;
-		this.data = data;
-	}
+    public ResponseBase(Integer rtnCode, String msg, Object data, String token) {
+        super();
+        this.rtnCode = rtnCode;
+        this.msg = msg;
+        this.data = data;
+        this.token = token;
+    }
 
-	public static void main(String[] args) {
-		ResponseBase responseBase = new ResponseBase();
-		responseBase.setData("123456");
-		responseBase.setMsg("success");
-		responseBase.setRtnCode(200);
-		System.out.println(responseBase.toString());
-		log.info("itmayiedu...");
-	}
-
-	@Override
-	public String toString() {
-		return "ResponseBase [rtnCode=" + rtnCode + ", msg=" + msg + ", data=" + data + "]";
-	}
+    @Override
+    public String toString() {
+        return "ResponseBase [rtnCode=" + rtnCode + ", msg=" + msg + ", data=" + data + "]";
+    }
 
 }
