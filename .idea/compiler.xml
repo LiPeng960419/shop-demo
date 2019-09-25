@@ -14,6 +14,7 @@
         <module name="member-api" />
         <module name="message" />
         <module name="shop-parent" />
+        <module name="shop-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -27,6 +28,7 @@
       <module name="message" target="1.8" />
       <module name="shop-api" target="1.8" />
       <module name="shop-parent" target="1.8" />
+      <module name="shop-web" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -41,6 +43,7 @@
       <module name="message" options="" />
       <module name="shop-api" options="-parameters" />
       <module name="shop-parent" options="" />
+      <module name="shop-web" options="" />
     </option>
   </component>
 </project>

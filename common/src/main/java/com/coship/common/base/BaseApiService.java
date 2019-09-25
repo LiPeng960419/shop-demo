@@ -15,6 +15,10 @@ public class BaseApiService {
         return setResult(Constants.HTTP_RES_CODE_500, msg, null, null);
     }
 
+    public ResponseBase setResultError(Integer code, String msg) {
+        return setResult(code, msg, null, null);
+    }
+
     public ResponseBase setResultError() {
         return setResult(Constants.HTTP_RES_CODE_500, Constants.HTTP_RES_CODE_500_VALUE, null,
                 null);

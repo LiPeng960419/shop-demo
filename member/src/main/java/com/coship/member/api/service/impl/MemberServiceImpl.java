@@ -62,10 +62,12 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
             return setResultError("注册用户信息失败.");
         }
         // 采用异步方式发送消息
-        String email = user.getEmail();
-        String json = emailJson(email);
-        log.info("####会员服务推送消息到消息服务平台####json:{}", json);
-        sendMsg(json);
+        if (StringUtils.isNotEmpty(user.getEmail())){
+            String email = user.getEmail();
+            String json = emailJson(email);
+            log.info("####会员服务推送消息到消息服务平台####json:{}", json);
+            sendMsg(json);
+        }
         return setResultSuccess("用户注册成功.", null);
     }
 
@@ -81,6 +83,12 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
         }
         password = MD5Util.MD5(password);
         UserEntity loginUser = memberDao.login(username, password);
+
+        //登录
+        return setLogin(loginUser);
+    }
+
+    private ResponseBase setLogin(UserEntity loginUser) {
         if (Objects.isNull(loginUser)) {
             return setResultError("用户名和密码不匹配.");
         }
@@ -96,15 +104,60 @@ public class MemberServiceImpl extends BaseApiService implements MemberService {
     @Override
     public ResponseBase findUserByToken(String token) {
         if (Objects.isNull(token)) {
-            return setResultError("token 不能为空");
+            return setResultError("token不能为空");
         }
         String userId = (String) baseRedisService.getString(token);
         if (Objects.isNull(userId)) {
             return setResultError("用户信息不存在");
         }
         UserEntity userEntity = memberDao.findByID(Long.parseLong(userId));
+        if (Objects.isNull(userEntity)) {
+            return setResultError("用户信息不存在");
+        }
         userEntity.setPassword(null);
         return setResultSuccess(userEntity, token);
+    }
+
+    @Override
+    public ResponseBase findUserByOpenId(String openId) {
+        if (Objects.isNull(openId)) {
+            return setResultError("openId不能为空");
+        }
+        UserEntity userEntity = memberDao.findUserByOpenId(openId);
+        //沒有找到用戶信息
+        if (Objects.isNull(userEntity)) {
+            return setResultError(Constants.HTTP_RES_CODE_201, "openid没有关联");
+        }
+        //找到openId后自动登录
+        return setLogin(userEntity);
+    }
+
+    @Override
+    public ResponseBase qqLogin(UserEntity user) {
+        // 1.验证参数
+        String openid = user.getOpenid();
+        if (StringUtils.isEmpty(openid)) {
+            return setResultError("openid不能为空!");
+        }
+        //根据用户登录
+        ResponseBase loginUser = login(user);
+        if (!Constants.HTTP_RES_CODE_200.equals(loginUser.getRtnCode())) {
+            return loginUser;
+        }
+        // 4. 获取token信息 根据token从redis获取用户信息
+        String token = loginUser.getToken();
+        ResponseBase tokenUser = findUserByToken(token);
+        if (!Constants.HTTP_RES_CODE_200.equals(tokenUser.getRtnCode())) {
+            return tokenUser;
+        }
+        UserEntity successLoginUser = (UserEntity) tokenUser.getData();
+
+        Long userId = successLoginUser.getId();
+        int updateResult = memberDao.updateUserByOpenId(openid, userId);
+        if (updateResult <= 0){
+            return setResultError("QQ账号关联用户失败!");
+        }
+        return loginUser;
     }
 
     private String emailJson(String email) {

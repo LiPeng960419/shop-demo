@@ -26,4 +26,9 @@ public interface MemberService {
     @RequestMapping(value = "/findUserByToken", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseBase findUserByToken(String token);
 
+    @RequestMapping(value = "/findUserByOpenId", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseBase findUserByOpenId(String openId);
+
+    @RequestMapping(value = "/qqLogin", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseBase qqLogin(@RequestBody UserEntity userEntity);
 }
