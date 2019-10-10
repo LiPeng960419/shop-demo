@@ -15,6 +15,7 @@
         <module name="message" />
         <module name="shop-parent" />
         <module name="shop-web" />
+        <module name="weixin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -29,6 +30,7 @@
       <module name="shop-api" target="1.8" />
       <module name="shop-parent" target="1.8" />
       <module name="shop-web" target="1.8" />
+      <module name="weixin" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

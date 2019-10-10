@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/message/message.iml" filepath="$PROJECT_DIR$/message/message.iml" />
       <module fileurl="file://$PROJECT_DIR$/shop-parent.iml" filepath="$PROJECT_DIR$/shop-parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/shop-web/shop-web.iml" filepath="$PROJECT_DIR$/shop-web/shop-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/weixin/weixin.iml" filepath="$PROJECT_DIR$/weixin/weixin.iml" />
     </modules>
   </component>
 </project>
