@@ -53,7 +53,7 @@ public class DispatCherController {
 		response.setCharacterEncoding("UTF-8");
 		// 1.将xml转换成Map格式
 		Map<String, String> resultMap = XmlUtils.parseXml(reqest);
-		log.info("###收到微信消息####resultMap:" + resultMap.toString());
+		log.info("###微信接收消息####:" + resultMap.toString());
 		// 2.判断消息类型
 		String msgType = resultMap.get("MsgType");
 		// 3.如果是文本类型，返回结果给微信服务端
@@ -73,6 +73,7 @@ public class DispatCherController {
 			if (resultCode == 0) {
 				String resultContent = jsonObject.getString("content");
 				msg = setText(resultContent, toUserName,fromUserName);
+				log.info("###微信回复消息####:" + resultContent);
 			}else {
 				msg = setText("我现在有点忙.稍后回复您!", toUserName,fromUserName);
 			}
