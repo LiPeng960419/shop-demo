@@ -12,6 +12,8 @@
         <option value="$PROJECT_DIR$/message/pom.xml" />
         <option value="$PROJECT_DIR$/shop-web/pom.xml" />
         <option value="$PROJECT_DIR$/weixin/pom.xml" />
+        <option value="$PROJECT_DIR$/pay/pom.xml" />
+        <option value="$PROJECT_DIR$/api-pay/pom.xml" />
       </list>
     </option>
   </component>

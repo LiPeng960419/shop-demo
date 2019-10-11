@@ -3,11 +3,11 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.coship.web</groupId>
-    <artifactId>shop-web</artifactId>
+    <groupId>com.coship.pay</groupId>
+    <artifactId>pay</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>shop-web</name>
-    <description>shop-web</description>
+    <name>pay</name>
+    <description>pay</description>
 
     <parent>
         <groupId>com.coship.shop</groupId>
@@ -23,23 +23,19 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-freemarker</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.coship.api.member</groupId>
-            <artifactId>api-member</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>com.coship.api.pay</groupId>
             <artifactId>api-pay</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>net.gplatform</groupId>
-            <artifactId>Sdk4J</artifactId>
-            <version>2.0</version>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.1991wangliang</groupId>
+            <artifactId>alipay-sdk</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 

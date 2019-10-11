@@ -24,6 +24,8 @@
         <module>message</module>
         <module>shop-web</module>
         <module>weixin</module>
+        <module>pay</module>
+        <module>api-pay</module>
     </modules>
 
     <properties>
@@ -79,7 +81,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>

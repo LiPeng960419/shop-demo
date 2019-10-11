@@ -39,13 +39,13 @@ spring:
     minIdle: 1
     timeBetweenEvictionRunsMillis: 60000
     minEvictableIdleTimeMillis: 300000
-    validationQuery: select 'x'
+    validationQuery: select 1
     testWhileIdle: true
     testOnBorrow: false
     testOnReturn: false
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
-
+    logSlowSql: true
 rocketmq:
   name-server: 10.9.216.1:9876;10.9.217.3:9876
   producer:

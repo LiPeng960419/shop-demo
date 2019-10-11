@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @Date: 2019/9/25 9:40
  */
 @Component
-@FeignClient(value = "member")
+@FeignClient("member")
 public interface MemberServiceFeign extends MemberService {
 
 }
