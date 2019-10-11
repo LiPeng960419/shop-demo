@@ -7,9 +7,11 @@ import com.coship.api.pay.service.PayCallBackService;
 import com.coship.common.base.BaseApiService;
 import com.coship.common.base.ResponseBase;
 import com.coship.common.constants.Constants;
+import com.coship.common.enums.OrderStateEnum;
 import com.coship.common.enums.PayStateEnum;
 import com.coship.pay.config.AlipayConfig;
 import com.coship.pay.dao.PaymentInfoDao;
+import com.coship.pay.fegin.OrderServiceFegin;
 import java.util.Date;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,9 @@ public class PayCallBackServiceImpl extends BaseApiService implements PayCallBac
 
     @Autowired
     private PaymentInfoDao paymentInfoDao;
+
+    @Autowired
+    private OrderServiceFegin orderServiceFegin;
 
     // 同步回调
     public ResponseBase synCallBack(@RequestParam Map<String, String> params) {
@@ -85,11 +90,23 @@ public class PayCallBackServiceImpl extends BaseApiService implements PayCallBac
                 paymentInfo.setPlatformorderId(trade_no);
                 paymentInfo.setState(PayStateEnum.SUCCESS_PAY.getState());
                 paymentInfo.setUpdated(new Date());
+                // 手动 begin begin
                 paymentInfoDao.updatePayInfo(paymentInfo);
+            } else {
+                return Constants.FAIL_STR;
             }
+            // 调用订单接口通知 支付状态
+            ResponseBase orderResult = orderServiceFegin
+                    .updateOrderIdInfo(OrderStateEnum.PAID.getState(), trade_no, outTradeNo);
+            if (!Constants.HTTP_RES_CODE_200.equals(orderResult.getRtnCode())) {
+                // 回滚 手动回滚 rollback
+                return Constants.FAIL_STR;
+            }
+            // 手动 提交 comiit;
             return Constants.SUCCESS_STR;
         } catch (Exception e) {
             log.info("######PayCallBackServiceImpl asynCallBack##ERROR:#####{}", e);
+            // 回滚 手动回滚 rollback
             return Constants.FAIL_STR;
         } finally {
             log.info("####异步回调结束####{}:", params);

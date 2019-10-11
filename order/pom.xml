@@ -3,11 +3,11 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.coship.pay</groupId>
-    <artifactId>pay</artifactId>
+    <groupId>com.coship.order</groupId>
+    <artifactId>order</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>pay</name>
-    <description>pay</description>
+    <name>order</name>
+    <description>order</description>
 
     <parent>
         <groupId>com.coship.shop</groupId>
@@ -28,19 +28,9 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.coship.api.pay</groupId>
-            <artifactId>api-pay</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>1.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.1991wangliang</groupId>
-            <artifactId>alipay-sdk</artifactId>
-            <version>1.0.0</version>
         </dependency>
     </dependencies>
 

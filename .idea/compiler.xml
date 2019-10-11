@@ -8,12 +8,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="api" />
         <module name="api-member" />
+        <module name="api-order" />
         <module name="api-pay" />
         <module name="common" />
         <module name="eureka" />
         <module name="member" />
         <module name="member-api" />
         <module name="message" />
+        <module name="order" />
         <module name="pay" />
         <module name="shop-parent" />
         <module name="shop-web" />
@@ -23,6 +25,7 @@
     <bytecodeTargetLevel>
       <module name="api" target="1.8" />
       <module name="api-member" target="1.8" />
+      <module name="api-order" target="1.8" />
       <module name="api-pay" target="1.8" />
       <module name="common" target="1.8" />
       <module name="demo" target="1.8" />
@@ -30,6 +33,7 @@
       <module name="member" target="1.8" />
       <module name="member-api" target="1.8" />
       <module name="message" target="1.8" />
+      <module name="order" target="1.8" />
       <module name="pay" target="1.8" />
       <module name="shop-api" target="1.8" />
       <module name="shop-parent" target="1.8" />
@@ -41,6 +45,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api" options="" />
       <module name="api-member" options="" />
+      <module name="api-order" options="" />
       <module name="api-pay" options="" />
       <module name="common" options="" />
       <module name="demo" options="" />
@@ -48,6 +53,7 @@
       <module name="member" options="" />
       <module name="member-api" options="-parameters" />
       <module name="message" options="" />
+      <module name="order" options="" />
       <module name="pay" options="" />
       <module name="shop-api" options="-parameters" />
       <module name="shop-parent" options="" />
