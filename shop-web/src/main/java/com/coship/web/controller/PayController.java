@@ -16,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class PayController {
 
-    private static final String PAY_SUCCESS = "pay_success";
+    private static final String PAY_SUCCESS = "paySuccess";
     @Autowired
     private PayServiceFegin payServiceFegin;
     @Autowired
@@ -65,7 +67,7 @@ public class PayController {
         return PAY_SUCCESS;
     }
 
-    @RequestMapping(value = "/callBack/hello", method = RequestMethod.GET)
+    @RequestMapping(value = "/callBack/synSuccessPage", method = RequestMethod.GET)
     public String hello(HttpServletRequest request, String outTradeNo, String tradeNo,
             String totalAmount) {
         request.setAttribute("outTradeNo", outTradeNo);
@@ -98,6 +100,9 @@ public class PayController {
             return;
         }
         LinkedHashMap data = (LinkedHashMap) synCallBack.getData();
+        Assert.notNull(data.get("out_trade_no"), "缺少参数out_trade_no");
+        Assert.notNull(data.get("trade_no"), "缺少参数trade_no");
+        Assert.notNull(data.get("total_amount"), "缺少参数total_amount");
         //成功回调的返回页面
         String htmlFrom = "<form name='punchout_form'"
                 + " method='post' action='http://127.0.0.1/callBack/synSuccessPage' >"
