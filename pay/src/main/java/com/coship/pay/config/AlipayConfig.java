@@ -19,13 +19,12 @@ public class AlipayConfig {
     public static String alipay_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoMLY/WfXQUeTCdcMfPVs/qYNNOlZLPrSzMTmUORO+fNX5lzjoEBaPe0UE/yE0AY1aAVchDc92kgUToVxVwWP3jtnSuiuu/EMR9PV7bqvSI0G0BGBOemNSwwuBtmHic+o5GFFXNPs1Gy+kh/0HfiMIZW7fZcMv7isQwRFEK72f5opk96/86kh5c7Or0o2ly/48BQqBuWsHi36KsuNeyJQsvPPSvOmFDNjhUz7gLxoJd3wpRDYMjZOkDPb0cwCUtku0wXxkQ1jXOFoYGzoS1PTLwcEMxo5so6xkJRM0AbsOIY8rHLtwwgMFkDqWRQfVGn05E3ojBpjmsCq9LucjQET2wIDAQAB";
 
     // 服务器异步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-    //public static String notify_url = "http://195daa14.ngrok.io/callBack/asynCallBack";
-
-    public static String notify_url = "http://127.0.0.1:80/callBack/asynCallBack";
+    public static String notify_url = "http://016667cd.ngrok.io/callBack/asynCallBack";
+    //public static String notify_url = "http://127.0.0.1:80/callBack/asynCallBack";
 
     // 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-    //public static String return_url = "http://195daa14.ngrok.io/callBack/synCallBack";
-    public static String return_url = "http://127.0.0.1:80/callBack/synCallBack";
+    public static String return_url = "http://016667cd.ngrok.io/callBack/synCallBack";
+    //public static String return_url = "http://127.0.0.1:80/callBack/synCallBack";
 
     // 签名方式
     public static String sign_type = "RSA2";
