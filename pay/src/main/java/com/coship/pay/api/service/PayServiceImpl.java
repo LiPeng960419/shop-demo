@@ -14,6 +14,7 @@ import com.coship.common.utils.TokenUtils;
 import com.coship.pay.config.AlipayConfig;
 import com.coship.pay.dao.PaymentInfoDao;
 import java.util.Date;
+import java.util.Objects;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -66,7 +67,7 @@ public class PayServiceImpl extends BaseApiService implements PayService {
         if (paymentInfo == null) {
             return setResultError("未找到支付信息");
         }
-        if (!PayStateEnum.WAIT_PAY.getState().equals(paymentInfo.getState())) {
+        if (Objects.nonNull(paymentInfo.getState()) && !PayStateEnum.WAIT_PAY.getState().equals(paymentInfo.getState())) {
             return setResultError(
                     "订单支付状态错误:" + PayStateEnum.getStateByCode(paymentInfo.getState()));
         }
