@@ -9,6 +9,7 @@ import com.coship.api.pay.service.PayService;
 import com.coship.common.base.BaseApiService;
 import com.coship.common.base.ResponseBase;
 import com.coship.common.constants.Constants;
+import com.coship.common.enums.PayStateEnum;
 import com.coship.common.utils.TokenUtils;
 import com.coship.pay.config.AlipayConfig;
 import com.coship.pay.dao.PaymentInfoDao;
@@ -65,6 +66,10 @@ public class PayServiceImpl extends BaseApiService implements PayService {
         if (paymentInfo == null) {
             return setResultError("未找到支付信息");
         }
+        if (!PayStateEnum.WAIT_PAY.getState().equals(paymentInfo.getState())) {
+            return setResultError(
+                    "订单支付状态错误:" + PayStateEnum.getStateByCode(paymentInfo.getState()));
+        }
         // 6.对接支付代码 返回提交支付from表单元素给客户端
         // 获得初始化的AlipayClient
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl,
@@ -83,7 +88,7 @@ public class PayServiceImpl extends BaseApiService implements PayService {
         // 付款金额，必填 企业金额
         String total_amount = paymentInfo.getPrice() + "";
         // 订单名称，必填
-        String subject = "蚂蚁课堂充值会员";
+        String subject = "李鹏QB充值业务";
         // 商品描述，可空
         // String body = new
         // String(request.getParameter("WIDbody").getBytes("ISO-8859-1"),"UTF-8");

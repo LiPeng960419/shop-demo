@@ -2,6 +2,10 @@ package com.coship.common.constants;
 
 public interface Constants {
 
+    String SUCCESS_STR = "success";
+
+    String FAIL_STR = "fail";
+
     // 响应请求成功
     String HTTP_RES_CODE_200_VALUE = "success";
 

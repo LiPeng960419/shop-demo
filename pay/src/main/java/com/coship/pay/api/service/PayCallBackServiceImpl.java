@@ -6,6 +6,8 @@ import com.coship.api.pay.entity.PaymentInfo;
 import com.coship.api.pay.service.PayCallBackService;
 import com.coship.common.base.BaseApiService;
 import com.coship.common.base.ResponseBase;
+import com.coship.common.constants.Constants;
+import com.coship.common.enums.PayStateEnum;
 import com.coship.pay.config.AlipayConfig;
 import com.coship.pay.dao.PaymentInfoDao;
 import java.util.Date;
@@ -63,17 +65,16 @@ public class PayCallBackServiceImpl extends BaseApiService implements PayCallBac
                             AlipayConfig.charset, AlipayConfig.sign_type); // 调用SDK验证签名
             // ——请在这里编写您的程序（以下代码仅作参考）——
             if (!signVerified) {
-                return "fail";
+                return Constants.FAIL_STR;
             }
             // 商户订单号
             String outTradeNo = params.get("out_trade_no");
             PaymentInfo paymentInfo = paymentInfoDao.getByOrderIdPayInfo(outTradeNo);
             if (paymentInfo == null) {
-                return "fail";
+                return Constants.FAIL_STR;
             }
-            Integer state = paymentInfo.getState();
-            if (state.equals("1")) {
-                return "success";
+            if (PayStateEnum.SUCCESS_PAY.getState().equals(paymentInfo.getState())) {
+                return Constants.SUCCESS_STR;
             }
             // 支付宝交易号
             String trade_no = params.get("trade_no");
@@ -82,14 +83,14 @@ public class PayCallBackServiceImpl extends BaseApiService implements PayCallBac
             if (trade_status.equals("TRADE_SUCCESS")) {
                 paymentInfo.setPayMessage(params.toString());
                 paymentInfo.setPlatformorderId(trade_no);
-                paymentInfo.setState(1);
+                paymentInfo.setState(PayStateEnum.SUCCESS_PAY.getState());
                 paymentInfo.setUpdated(new Date());
                 paymentInfoDao.updatePayInfo(paymentInfo);
             }
-            return "success";
+            return Constants.SUCCESS_STR;
         } catch (Exception e) {
             log.info("######PayCallBackServiceImpl asynCallBack##ERROR:#####{}", e);
-            return "fail";
+            return Constants.FAIL_STR;
         } finally {
             log.info("####异步回调结束####{}:", params);
         }
