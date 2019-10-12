@@ -37,3 +37,7 @@ spring:
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
     logSlowSql: true
+
+tm:
+  manager:
+    url: http://127.0.0.1:8899/tx/manager/

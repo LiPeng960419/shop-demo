@@ -60,14 +60,15 @@ public class PayServiceImpl extends BaseApiService implements PayService {
             return setResultError("支付请求已经超时!");
         }
         // 4.使用支付id，进行下单
-        Long payIDl = Long.parseLong(payId);
+        Integer payIDl = Integer.parseInt(payId);
 
         // 5.使用支付id查询支付信息
         PaymentInfo paymentInfo = paymentInfoDao.getPaymentInfo(payIDl);
         if (paymentInfo == null) {
             return setResultError("未找到支付信息");
         }
-        if (Objects.nonNull(paymentInfo.getState()) && !PayStateEnum.WAIT_PAY.getState().equals(paymentInfo.getState())) {
+        if (Objects.nonNull(paymentInfo.getState()) && !PayStateEnum.WAIT_PAY.getState()
+                .equals(paymentInfo.getState())) {
             return setResultError(
                     "订单支付状态错误:" + PayStateEnum.getStateByCode(paymentInfo.getState()));
         }

@@ -18,5 +18,7 @@
 
     <modules>
         <module>../api-member</module>
+        <module>../api-order</module>
+        <module>../api-pay</module>
     </modules>
 </project>

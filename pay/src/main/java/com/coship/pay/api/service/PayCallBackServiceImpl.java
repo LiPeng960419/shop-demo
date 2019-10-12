@@ -2,6 +2,7 @@ package com.coship.pay.api.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.internal.util.AlipaySignature;
+import com.codingapi.tx.annotation.TxTransaction;
 import com.coship.api.pay.entity.PaymentInfo;
 import com.coship.api.pay.service.PayCallBackService;
 import com.coship.common.base.BaseApiService;
@@ -16,6 +17,7 @@ import java.util.Date;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -111,7 +113,36 @@ public class PayCallBackServiceImpl extends BaseApiService implements PayCallBac
         } finally {
             log.info("####异步回调结束####{}:", params);
         }
+    }
 
+    @TxTransaction(isStart = true)
+    @Transactional
+    public String payOrder(@RequestParam("payId") String payId, @RequestParam("temp") int temp) {
+        PaymentInfo paymentInfo = paymentInfoDao.getByOrderIdPayInfo(payId);
+        if (paymentInfo == null) {
+            return Constants.FAIL_STR;
+        }
+        if (PayStateEnum.SUCCESS_PAY.getState().equals(paymentInfo.getState())) {
+            return Constants.SUCCESS_STR;
+        }
+        String orderId = paymentInfo.getOrderId();
+        // 支付宝交易号
+        String tradeNo = "644064779";
+        paymentInfo.setState(1);// 标识为已经支付
+        paymentInfo.setPayMessage("123456");
+        paymentInfo.setPlatformorderId(tradeNo);
+        paymentInfo.setPayMessage("hello");
+        Integer updateResult = paymentInfoDao.updatePayInfo(paymentInfo);
+        if (updateResult <= 0) {
+            throw new RuntimeException("支付信息修改失败");
+        }
+        // 调用订单接口通知 支付状态
+        ResponseBase orderResult = orderServiceFegin
+                .updateOrderIdInfo(OrderStateEnum.PAID.getState(), tradeNo, orderId);
+        if (!Constants.HTTP_RES_CODE_200.equals(orderResult.getRtnCode())) {
+            throw new RuntimeException("订单状态信息修改失败");
+        }
+        return Constants.SUCCESS_STR;
     }
 
 }

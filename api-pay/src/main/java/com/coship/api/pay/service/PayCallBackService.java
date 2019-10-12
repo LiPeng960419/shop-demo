@@ -21,4 +21,10 @@ public interface PayCallBackService {
     @RequestMapping("/asynCallBack")
     public String asynCallBack(@RequestParam Map<String, String> params);
 
+    /*
+    测试lcn
+     */
+    @RequestMapping("/payOrder")
+    public String payOrder(@RequestParam("payId") String payId, @RequestParam("temp") int temp);
+
 }
