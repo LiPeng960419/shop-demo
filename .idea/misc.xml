@@ -16,6 +16,7 @@
         <option value="$PROJECT_DIR$/api-pay/pom.xml" />
         <option value="$PROJECT_DIR$/order/pom.xml" />
         <option value="$PROJECT_DIR$/api-order/pom.xml" />
+        <option value="$PROJECT_DIR$/tx-manager/pom.xml" />
       </list>
     </option>
   </component>

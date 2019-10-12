@@ -19,6 +19,7 @@
         <module name="pay" />
         <module name="shop-parent" />
         <module name="shop-web" />
+        <module name="tx-manager" />
         <module name="weixin" />
       </profile>
     </annotationProcessing>
@@ -38,6 +39,7 @@
       <module name="shop-api" target="1.8" />
       <module name="shop-parent" target="1.8" />
       <module name="shop-web" target="1.8" />
+      <module name="tx-manager" target="1.8" />
       <module name="weixin" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -58,6 +60,7 @@
       <module name="shop-api" options="-parameters" />
       <module name="shop-parent" options="" />
       <module name="shop-web" options="" />
+      <module name="tx-manager" options="" />
     </option>
   </component>
 </project>
