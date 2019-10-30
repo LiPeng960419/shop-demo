@@ -14,15 +14,16 @@ spring:
     pool:
       enabled: false
   mail:
-    host: pop.coship.com
-    username: lipeng@coship.com
-    password: Pwd#910138
+    host: smtp.163.com
+    port: 465
+    username: lp960419@163.com
+    password: lp960419    #授权码
     default-encoding: utf-8
     properties:
       mail.debug: false
       mail.smtp.auth: true   #安全认证(默认是true)
       mail.smtp.ssl.enable: true  #开启ssl加密 否则项目启动时报530error
-      mail.smtp.ssl.socketFactory: sf
+      mail.smtp.ssl.socketFactory: javax.net.ssl.SSLSocketFactory
       mail.smtp.starttls.enable: true
       mail.smtp.starttls.required: true
 ########################################
