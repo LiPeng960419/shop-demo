@@ -128,7 +128,7 @@ public class PayCallBackServiceImpl extends BaseApiService implements PayCallBac
         String orderId = paymentInfo.getOrderId();
         // 支付宝交易号
         String tradeNo = "644064779";
-        paymentInfo.setState(1);// 标识为已经支付
+        paymentInfo.setState(PayStateEnum.SUCCESS_PAY.getState());// 标识为已经支付
         paymentInfo.setPayMessage("123456");
         paymentInfo.setPlatformorderId(tradeNo);
         paymentInfo.setPayMessage("hello");

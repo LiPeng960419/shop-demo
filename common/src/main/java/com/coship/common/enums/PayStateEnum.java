@@ -6,9 +6,9 @@ package com.coship.common.enums;
  */
 public enum PayStateEnum {
 
-    WAIT_PAY(1, "待支付"),
-    SUCCESS_PAY(2, "支付成功"),
-    FAIL_PAY(3, "支付失败");
+    WAIT_PAY(0, "待支付"),
+    SUCCESS_PAY(1, "支付成功"),
+    FAIL_PAY(2, "支付失败");
 
     private Integer state;
     private String stateName;
