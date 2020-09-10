@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>api</name>
     <description>api</description>
-
+    <packaging>pom</packaging>
     <parent>
         <groupId>com.coship.shop</groupId>
         <artifactId>parent</artifactId>

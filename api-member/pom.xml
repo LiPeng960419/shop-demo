@@ -7,6 +7,7 @@
         <groupId>com.coship.api</groupId>
         <artifactId>api</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../api/pom.xml</relativePath>
     </parent>
     <groupId>com.coship.api.member</groupId>
     <artifactId>api-member</artifactId>

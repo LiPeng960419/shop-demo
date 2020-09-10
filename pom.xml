@@ -8,6 +8,7 @@
     <version>V20190924</version>
     <name>parent</name>
     <description>parent</description>
+    <packaging>pom</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -16,7 +17,6 @@
     </parent>
 
     <modules>
-        <module>api-member</module>
         <module>api</module>
         <module>common</module>
         <module>eureka</module>
@@ -25,9 +25,8 @@
         <module>shop-web</module>
         <module>weixin</module>
         <module>pay</module>
-        <module>api-pay</module>
-        <module>api-order</module>
         <module>order</module>
+        <module>tx-manager</module>
     </modules>
 
     <properties>
